@@ -1,3 +1,3 @@
-run do |env|
-  [200, {}, ["Hello World"]]
+run do |_env|
+  [200, {}, ['Hello World']]
 end
