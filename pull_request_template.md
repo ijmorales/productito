@@ -2,10 +2,6 @@
 
 *That awesome PR in which we... *
 
-### ✏️ DESCRIPTION
+### ✏️  DESCRIPTION
 
-### ℹ️ REVIEWER INFO
-
-### 🖼️ SCREENSHOTS/LOOM
-
-### :scroll: JIRA TICKET
+### 📄 NOTION LINK
