@@ -3,7 +3,12 @@ require: rubocop-rspec
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Ignore the Style/StringLiterals cop for Gemfile
 Style/StringLiterals:
   Exclude:
     - Gemfile
+
+Style/Documentation:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
