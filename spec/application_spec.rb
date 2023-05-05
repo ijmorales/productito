@@ -7,7 +7,7 @@ describe Application do
     let(:response) { get '/' }
 
     it 'returns a 200 status code and a hello world in the body' do
-      expect(response.status).to eq(201)
+      expect(response.status).to eq(200)
       expect(response.body).to eq 'Hello World'
     end
   end
