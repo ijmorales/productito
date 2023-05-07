@@ -1,7 +1,8 @@
 require 'rack/test'
+require 'debug'
 require_relative '../config/loader'
 
-Loader.new(paths: %w[app spec]).setup
+Loader.load(env: :test)
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods

@@ -1,5 +1,13 @@
+require_relative '../lib/router'
+
 class Application
-  def call(_env)
-    [200, {}, ['Hello World']]
+  def call(env)
+    handle_request(Rack::Request.new(env))
+  end
+
+  private
+
+  def handle_request(request)
+    Router.new(request:).route
   end
 end

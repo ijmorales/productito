@@ -1,6 +1,6 @@
 require 'debug'
 require_relative 'config/loader'
 
-Loader.new(paths: ['app']).setup
+Loader.load(env: ENV['RACK_ENV']&.to_sym || :development)
 
 run Application.new
