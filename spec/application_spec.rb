@@ -31,11 +31,24 @@ describe Application do
   end
 
   context 'when doing a POST request to /products', reset_test_db: true do
-    let(:response) { post '/products', params: { name: 'Lemon', price: 1.00 } }
+    let(:params) { { name: 'Lemon', price: 1.00 } }
+    let(:response) { post '/products', params: }
 
-    it 'returns a 200 status code and a message' do
-      expect(response.status).to eq 200
-      expect(response.body).to include 'Product creation scheduled'
+    # Mock the wait time so the spec does not take ages to run
+    before do
+      allow(Product).to receive(:create_async).and_wrap_original do |method, *args, **kwargs|
+        kwargs[:wait] = 0.2
+        method.call(*args, **kwargs)
+      end
+    end
+
+    it 'schedules product creation, returns a message, and creates a new product after 5 seconds' do
+      expect do
+        expect(response.status).to eq 200
+        expect(response.body).to include 'Product creation scheduled'
+      end.not_to change(Product, :count)
+
+      expect { sleep 0.3 }.to change(Product, :count).by(1)
     end
   end
 

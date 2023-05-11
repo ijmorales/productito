@@ -22,4 +22,8 @@ class BaseController
       'content-type' => 'application/json'
     }
   end
+
+  def params
+    request.params
+  end
 end

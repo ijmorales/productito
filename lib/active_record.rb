@@ -13,6 +13,17 @@ class ActiveRecord
     adapter.all.size
   end
 
+  def self.create(attributes = {})
+    new(attributes).save
+  end
+
+  def self.create_async(attributes = {}, **kwargs)
+    Thread.new do
+      sleep kwargs[:wait]
+      create(attributes)
+    end
+  end
+
   def initialize(attributes = {})
     attributes.each do |key, value|
       instance_variable_set("@#{key}", value)

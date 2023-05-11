@@ -8,6 +8,8 @@ class ActiveRecord
 
     def save(record); end
 
+    def create(params); end
+
     private
 
     def model_name

@@ -8,8 +8,7 @@ class ProductsController < BaseController
   end
 
   def create
-    # TODO: Make this async
-    Product.new(request.params).save
+    Product.create_async(params, wait: 5)
     respond 'Product creation scheduled'
   end
 end
