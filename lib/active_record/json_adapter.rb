@@ -21,7 +21,7 @@ class ActiveRecord
     private
 
     def file_path
-      "db/#{model_name.downcase}s.json"
+      "db/#{ENV['RACK_ENV']}/#{model_name.downcase}s.json"
     end
 
     def model_name

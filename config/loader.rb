@@ -1,9 +1,10 @@
 require 'zeitwerk'
+require 'dotenv'
 
 class Loader
   attr_accessor :loader, :env
 
-  TEST_ONLY = %w[spec].freeze
+  TEST_ONLY = %w[spec spec/support].freeze
   DEFAULT = %w[app app/models app/controllers lib].freeze
 
   def initialize(**kwargs)
@@ -14,6 +15,7 @@ class Loader
   def load
     attach_loader_paths
     loader.setup
+    load_env_variables
   end
 
   def self.load(**kwargs)
@@ -33,5 +35,9 @@ class Loader
       paths << TEST_ONLY if env == 'test'
       paths.flatten
     end
+  end
+
+  def load_env_variables
+    Dotenv.load(".env.#{env}")
   end
 end

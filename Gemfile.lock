@@ -6,6 +6,7 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
+    dotenv (2.8.1)
     io-console (0.6.0)
     irb (1.6.4)
       reline (>= 0.3.0)
@@ -64,6 +65,7 @@ PLATFORMS
 
 DEPENDENCIES
   debug (~> 1.7)
+  dotenv (~> 2.8)
   rack (~> 3.0)
   rack-test (~> 2.1)
   rackup (~> 2.1)
