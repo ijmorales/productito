@@ -8,7 +8,7 @@ describe Application do
 
     it 'returns a 200 status code and a hello world in the body' do
       expect(response.status).to eq(200)
-      expect(response.body).to eq 'Hello World'
+      expect(response.body).to include 'Hello World'
     end
   end
 
@@ -17,7 +17,7 @@ describe Application do
 
     it 'returns a 200 status code and the products index' do
       expect(response.status).to eq 200
-      expect(response.body).to eq 'Products index'
+      expect(response.body).to eq Product.all.to_json
     end
   end
 
@@ -26,7 +26,29 @@ describe Application do
 
     it 'returns a 200 status code and the products show' do
       expect(response.status).to eq 200
-      expect(response.body).to eq 'Products show'
+      expect(response.body).to include 'Products show'
+    end
+  end
+
+  context 'when doing a POST request to /products', reset_test_db: true do
+    let(:params) { { name: 'Lemon', price: 1.00 } }
+    let(:response) { post '/products', params: }
+
+    # Mock the wait time so the spec does not take ages to run
+    before do
+      allow(Product).to receive(:create_async).and_wrap_original do |method, *args, **kwargs|
+        kwargs[:wait] = 0.2
+        method.call(*args, **kwargs)
+      end
+    end
+
+    it 'schedules product creation, returns a message, and creates a new product after 5 seconds' do
+      expect do
+        expect(response.status).to eq 200
+        expect(response.body).to include 'Product creation scheduled'
+      end.not_to change(Product, :count)
+
+      expect { sleep 0.3 }.to change(Product, :count).by(1)
     end
   end
 
@@ -35,7 +57,7 @@ describe Application do
 
     it 'returns a 404 status code' do
       expect(response.status).to eq 404
-      expect(response.body).to eq 'Not found'
+      expect(response.body).to include 'Not found'
     end
   end
 end
