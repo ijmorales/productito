@@ -8,7 +8,7 @@ describe Application do
 
     it 'returns a 200 status code and a hello world in the body' do
       expect(response.status).to eq(200)
-      expect(response.body).to eq 'Hello World'
+      expect(response.body).to include 'Hello World'
     end
   end
 
@@ -17,7 +17,7 @@ describe Application do
 
     it 'returns a 200 status code and the products index' do
       expect(response.status).to eq 200
-      expect(response.body).to eq 'Products index'
+      expect(response.body).to eq Product.all.to_json
     end
   end
 
@@ -26,7 +26,16 @@ describe Application do
 
     it 'returns a 200 status code and the products show' do
       expect(response.status).to eq 200
-      expect(response.body).to eq 'Products show'
+      expect(response.body).to include 'Products show'
+    end
+  end
+
+  context 'when doing a POST request to /products', reset_test_db: true do
+    let(:response) { post '/products', params: { name: 'Lemon', price: 1.00 } }
+
+    it 'returns a 200 status code and a message' do
+      expect(response.status).to eq 200
+      expect(response.body).to include 'Product creation scheduled'
     end
   end
 
@@ -35,7 +44,7 @@ describe Application do
 
     it 'returns a 404 status code' do
       expect(response.status).to eq 404
-      expect(response.body).to eq 'Not found'
+      expect(response.body).to include 'Not found'
     end
   end
 end
