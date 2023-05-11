@@ -1,3 +1,5 @@
+require 'json'
+
 class BaseController
   attr_reader :request
 
@@ -12,6 +14,12 @@ class BaseController
   private
 
   def respond(body, status: 200)
-    [status, {}, [body]]
+    [status, headers, [body.to_json]]
+  end
+
+  def headers
+    {
+      'content-type' => 'application/json'
+    }
   end
 end

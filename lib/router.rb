@@ -15,9 +15,10 @@ class Router
   private
 
   def resource
-    result = Matcher.match(request.path)
-    resource = result.delete(:resource)
-    params = result
+    url_params = Matcher.match(request.path)
+    body_params = Params.parse_body_params(request)
+    resource = url_params.delete(:resource)
+    params = {}.merge url_params, body_params
     request.params.merge!(params) if params
 
     resource
