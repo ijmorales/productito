@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 
+gem "dotenv", "~> 2.8"
 gem "rack", "~> 3.0"
 gem "rackup", "~> 2.1"
 gem "zeitwerk", "~> 2.6"
-gem "dotenv", "~> 2.8"
 
 group :development do
   gem "rubocop", "~> 1.50"
