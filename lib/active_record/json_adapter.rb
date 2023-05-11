@@ -3,6 +3,7 @@ require 'json'
 class ActiveRecord
   class JsonAdapter < BaseAdapter
     def all
+      ensure_file_exists
       data = JSON.parse(File.read(file_path))
       data.map { |record| @model.new(record) }
     end
@@ -39,6 +40,13 @@ class ActiveRecord
 
     def persist_records(records)
       File.write(file_path, records.to_json)
+    end
+
+    def ensure_file_exists
+      return if File.exist?(file_path)
+
+      FileUtils.mkdir_p(File.dirname(file_path))
+      File.write(file_path, [].to_json)
     end
   end
 end
