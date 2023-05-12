@@ -17,6 +17,7 @@ class ActiveRecord
         update_existing_record(records, record)
       end
       persist_records(records)
+      record
     end
 
     private
