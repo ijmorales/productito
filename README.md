@@ -31,14 +31,18 @@ En el futuro, se podría facilmente agregar funcionalidad para completar el CRUD
 
 Les dejo dos comandos usando `curl` para ilustrar como se puede usar la API hoy por hoy:
 
+**Crear un producto**
 ```
-# Crear un producto
 curl http://localhost:9292/products -X POST -u "nacho:secret_password" -H "Content-Type: application/json" -d '{"price":"30.35", "name": "test_product"}'
+```
 
-# Consultar todos los productos
+**Consultar todos los productos**
+```
 curl http://localhost:9292/products -u nacho:secret_password
+```
 
-# La api tambien puede aplicar compresion si enviamos el header Accept-Encoding: gzip
+**La api tambien puede aplicar compresion si enviamos el header Accept-Encoding: gzip**
+```
 curl --compressed http://localhost:9292/products -u nacho:secret_password
 ```
 
