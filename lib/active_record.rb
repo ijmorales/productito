@@ -1,4 +1,6 @@
 class ActiveRecord
+  include ::Concerns::Loggable
+
   attr_accessor :id
 
   def self.all
@@ -20,7 +22,8 @@ class ActiveRecord
   def self.create_async(attributes = {}, **kwargs)
     Thread.new do
       sleep kwargs[:wait]
-      create(attributes)
+      product = create(attributes)
+      log :debug, "Created product #{product.id}" if ENV['RACK_ENV'] == 'development'
     end
   end
 
