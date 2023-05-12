@@ -45,3 +45,12 @@ curl --compressed http://localhost:9292/products -u nacho:secret_password
 La creación de productos se hace de manera asincrónica luego de 5 segundos. Está implementada de forma tal que ese delay de 5 segundos no bloquee el procesamiento de otros requests, a través de la interfaz de threading de Ruby:
 
 Request #1 de Creación de producto "Manzana" => Se crea un nuevo Thread, se setea un delay de 5 segundos y se devuelve el control al thread principal que procesa requests de manera inmediata => Se devuelve una response indicando que se está procesando la creación => Pasan los 5 segundos y el thread que maneja la creación del producto retoma el control, persiste el producto y escribe un log a STDOUT
+
+
+## FAQ
+
+**¿Por qué el mix entre inglés y español?**
+
+En mis trabajos anteriores, toda la documentación estaba en inglés, excepto la que apuntaba a usuarios de negocio hispanoparlantes. La idea de tener tanto el código como la documentación en inglés era poder sumar desarrolladores que hablaran otras lenguas al equipo de una forma más sencilla.
+En este proyecto, seguí con esa línea por costumbre, por eso los PRs y el código están en inglés.
+
