@@ -1,13 +1,19 @@
-require_relative '../lib/router'
+require 'rack/builder'
+require 'dotenv'
 
 class Application
-  def call(env)
-    handle_request(Rack::Request.new(env))
+  def initialize
+    @app = Rack::Builder.new do
+      use BasicAuthMiddleware, ENV['BASE_USER'], ENV['BASE_PASSWORD']
+      run proc { |env| Application.new.handle_request(env) }
+    end.to_app
   end
 
-  private
+  def call(env)
+    @app.call(env)
+  end
 
-  def handle_request(request)
-    Router.new(request:).route
+  def handle_request(env)
+    Router.new(request: Rack::Request.new(env)).route
   end
 end
