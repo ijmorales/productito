@@ -9,6 +9,7 @@ class Application
     @app = Rack::Builder.new do
       use Rack::ETag
       use Rack::ConditionalGet
+      use Rack::Deflater
       use Rack::Static, static_opts
       use BasicAuthMiddleware, ENV['BASE_USER'], ENV['BASE_PASSWORD']
 
