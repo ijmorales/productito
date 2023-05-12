@@ -15,3 +15,5 @@ group :development, :test do
   gem "rack-test", "~> 2.1"
   gem "rspec", "~> 3.12"
 end
+
+gem "rack-contrib", "~> 1.2"
