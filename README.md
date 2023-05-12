@@ -54,3 +54,15 @@ Request #1 de Creación de producto "Manzana" => Se crea un nuevo Thread, se set
 En mis trabajos anteriores, toda la documentación estaba en inglés, excepto la que apuntaba a usuarios de negocio hispanoparlantes. La idea de tener tanto el código como la documentación en inglés era poder sumar desarrolladores que hablaran otras lenguas al equipo de una forma más sencilla.
 En este proyecto, seguí con esa línea por costumbre, por eso los PRs y el código están en inglés.
 
+**¿Donde encuentro las respuestas al punto 1, 2 y 3?
+
+Podes encontrarlas en el directorio `docs/`.
+
+**¿Cómo se te ocurre usar BasicAuth en una app que no fuerza HTTPS?**
+
+Para una aplicación productiva real, usaría algún patrón de autenticación más robusto como JWT o Cookie-based Auth y sobre todo, me aseguraría de:
+
+1. Transmitir todo el tráfico sobre HTTPS y upgradear todas las conexiones de HTTP a HTTPS.
+2. Firmar los tokens/cookies con un secret del lado del servidor.
+
+En el diseño actual, las credenciales se mandan a través de HTTP codificadas en Base64. Para un atacante, es trivial capturar esos paquetes y obtener las credenciales ya que están en texto plano.
