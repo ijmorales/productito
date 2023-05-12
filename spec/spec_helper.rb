@@ -2,6 +2,7 @@ require 'rack/test'
 require 'debug'
 require_relative '../config/loader'
 require_relative 'support/reset_test_db_helper'
+require_relative 'support/authentication_helper'
 
 Loader.load(env: :test)
 

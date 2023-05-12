@@ -4,6 +4,7 @@ class ProductsController < BaseController
   end
 
   def show
+    # TODO: Implement product show
     respond 'Products show'
   end
 

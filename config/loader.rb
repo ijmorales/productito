@@ -5,7 +5,7 @@ class Loader
   attr_accessor :loader, :env
 
   TEST_ONLY = %w[spec spec/support].freeze
-  DEFAULT = %w[app app/models app/controllers lib].freeze
+  DEFAULT = %w[app app/models app/controllers app/middlewares lib].freeze
 
   def initialize(**kwargs)
     @loader = Zeitwerk::Loader.new
@@ -32,7 +32,7 @@ class Loader
     @paths ||= begin
       paths = []
       paths << DEFAULT
-      paths << TEST_ONLY if env == 'test'
+      paths << TEST_ONLY if env == :test
       paths.flatten
     end
   end
